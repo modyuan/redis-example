@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const http = require('http');
 const redis = require('./redisdb');
+const ws =require('./ws');
 
 
 const staticPath = path.join(__dirname, "static");

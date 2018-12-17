@@ -6,63 +6,88 @@
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
     <title>Chat示例</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
+        * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
+
         h1 {
-            margin:5vmin auto;
+            margin: 5vmin auto;
             text-align: center;
-            font-size:5vmin;
+            font-size: 5vmin;
         }
 
-        pre{
-            margin:30px;
-            font-family:Consolas, Monaco, monospace;;
-            border:1px solid black;
-            padding:10px;
-            white-space :pre-wrap;
+        pre {
+            margin: 30px;
+            font-family: Consolas, Monaco, monospace;;
+            border: 1px solid black;
+            padding: 10px;
+            white-space: pre-wrap;
             word-break: break-all;
         }
+
         div#out {
             width: 90vw;
             height: 70vh;
-            margin:0 auto;
-            margin-top:5vmin;
+            margin: 0 auto;
+            margin-top: 5vmin;
         }
-        div#display{
+
+        div#display {
             width: 90vw;
             height: 60vh;
             border: 2px solid darkgrey;
-            margin:0 auto;
+            margin: 0 auto;
             overflow: scroll;
             font-size: 4vw;
         }
-        #msg{
-            margin-top: 5vmin;
+
+        #msgbox {
+            margin-top: 5vh;
+            margin-left:2vw;
             width: 60vw;
-            height:10vmin;
+            height: 10vmin;
             font-size: 6vmin;
             vertical-align: center;
+            border: 1px solid black;
         }
-        #btn{
-            margin-top: 5vmin;
+
+        #btn {
+            margin-top: 5vh;
             margin-left: 5vw;
             width: 20vw;
-            height:10vmin;
+            height: 10vmin;
             font-size: 6vmin;
             vertical-align: center;
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded",()=>{
-            window.ws= new WebSocket("ws://" +window.location.hostname+ ":8011/")
-           window.btn=document.getElementById("btn");
-           window.display= document.getElementById("display");
-           window.btn.onclick=()=>{
-                window.display.scrollTo(0,window.display.scrollHeight);
-           };
+        document.addEventListener("DOMContentLoaded", () => {
+            let btn = document.getElementById("btn");
+            let display = document.getElementById("display");
+            let msgbox =document.getElementById("msgbox");
+            //only for recv
+            let ws = new WebSocket("ws://" + window.location.hostname + ":8011/");
+            //only for post
+            let ws2 = new WebSocket("ws://" + window.location.hostname + ":8012/");
+
+            window.myws=ws;
+            ws.onmessage=(event)=>{
+                display.innerText+="-> "+event.data+"\n";
+                display.scrollTo(0, display.scrollHeight);
+            };
+
+            btn.onclick = () => {
+                display.scrollTo(0, display.scrollHeight);
+                ws2.send(msgbox.value);
+                msgbox.value='';
+            };
+            msgbox.onkeypress=(event)=>{
+                if(event.code === 'Enter'){
+                  btn.click();
+                }
+            }
         });
 
     </script>
@@ -75,7 +100,8 @@
 
     </div>
     <div id="input">
-        <input type="text" id="msg"><button id="btn">Send</button>
+        <input type="text" id="msgbox">
+        <button id="btn">Send</button>
     </div>
 
 </div>
