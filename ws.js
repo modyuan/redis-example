@@ -21,9 +21,17 @@ wss.on('connection',(ws)=>{
     ws.on('close',()=>{
         ws.redis.quit();
         console.log("a link quited.");
-    })
+    });
+    ws.on('error',()=>{
+        ws.close();
+    });
 
 });
+wss.on("error", ()=>{
+    console.log("wss1 error!");
+});
+
+
 //only for recv message
 wss2.on('connection',(ws)=>{
     console.log("a link built.");
@@ -35,6 +43,12 @@ wss2.on('connection',(ws)=>{
     ws.on('close',()=>{
         ws.redis.quit();
         //console.log("a link quited.");
-    })
+    });
+    ws.on('error',()=>{
+        ws.close();
+    });
 
+});
+wss2.on("error", ()=>{
+    console.log("wss2 error!");
 });

@@ -51,6 +51,10 @@ server.on('close', () => {
     console.log("Server closed.");
 });
 
+server.on('error',()=>{
+   console.log("http server error!");
+});
+
 process.on('SIGTERM', () => {
     server.close();
 });
