@@ -29,7 +29,7 @@
 
         div#out {
             width: 90vw;
-            height: 70vh;
+            height: 75vh;
             margin: 0 auto;
             margin-top: 5vmin;
         }
@@ -47,7 +47,7 @@
             margin-top: 5vh;
             margin-left:2vw;
             width: 60vw;
-            height: 10vmin;
+            height: 10vh;
             font-size: 6vmin;
             vertical-align: center;
             border: 1px solid black;
@@ -57,7 +57,7 @@
             margin-top: 5vh;
             margin-left: 5vw;
             width: 20vw;
-            height: 10vmin;
+            height: 10vh;
             font-size: 6vmin;
             vertical-align: center;
         }
@@ -93,6 +93,7 @@
     </script>
 </head>
 <body>
+<h2 style="float: left;margin-left: 5vmin; font-size: 3vmin;position: absolute;"><a href="/">返回主页</a></h2>
 <h1>Chat示例</h1>
 <hr>
 <div id="out">
@@ -105,6 +106,20 @@
     </div>
 
 </div>
+<pre>
+//只负责订阅消息
+ws.redis = redis.newClient();
+ws.redis.subscribe("public");
+ws.redis.on('message',function(channel,message){
+   ws.send(message);
+});
+
+//只负责发布消息
+ws.redis = redis.newClient();
+ws.on('message',function(message){
+    ws.redis.publish('public',message);
+});
+</pre>
 
 </body>
 </html>

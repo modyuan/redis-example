@@ -19,10 +19,18 @@
             font-size: 5vmin;
         }
 
+        h2 {
+            float: left;
+
+            margin-left: 5vmin;
+            font-size: 3vmin;
+            position: absolute;
+        }
+
         div#out {
             margin: 0 auto;
             margin-top: 5vw;
-            height: 40vw;
+            height: 11vw;
             width: 60vw;
 
         }
@@ -76,10 +84,11 @@
     </script>
 </head>
 <body>
+<h2 style="float: left;margin-left: 5vmin; font-size: 3vmin;position: absolute;"><a href="/">返回主页</a></h2>
 <h1>计数器示例</h1>
 <hr>
 <div id="out">
-    <span id="count"></span>
+    <span id="count">0</span>
     <button id="btn">+1</button>
 </div>
 <pre>

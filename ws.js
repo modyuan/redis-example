@@ -20,7 +20,7 @@ wss.on('connection',(ws)=>{
     });
     ws.on('close',()=>{
         ws.redis.quit();
-        console.log("a link quited.");
+        //console.log("a link quited.");
     });
     ws.on('error',()=>{
         ws.close();
@@ -35,7 +35,7 @@ wss.on("error", ()=>{
 
 //only for recv message
 wss2.on('connection',(ws)=>{
-    console.log("a link built.");
+    //console.log("a link built.");
 
     ws.redis = redis.newClient();
     ws.on('message',function(message){
