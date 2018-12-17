@@ -29,6 +29,7 @@ wss.on('connection',(ws)=>{
 });
 wss.on("error", ()=>{
     console.log("wss1 error!");
+    wss.close();
 });
 
 
@@ -51,4 +52,12 @@ wss2.on('connection',(ws)=>{
 });
 wss2.on("error", ()=>{
     console.log("wss2 error!");
+    wss.close();
 });
+
+function quit(){
+    wss.close();wss2.close();
+}
+module.exports={
+    quit
+};

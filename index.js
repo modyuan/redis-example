@@ -57,9 +57,11 @@ server.on('error',()=>{
 
 process.on('SIGTERM', () => {
     server.close();
+    ws.quit();
 });
 process.on('SIGINT', () => {
     server.close();
+    ws.quit();
 });
 
 //静态文件服务
