@@ -1,0 +1,31 @@
+{
+  "name": "redis-example",
+  "version": "1.0.0",
+  "description": "an example of using redis in web development",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuansushow/redis-example.git"
+  },
+  "keywords": [
+    "redis",
+    "example"
+  ],
+  "author": "yuansu<yzmoe@outlook.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuansushow/redis-example/issues"
+  },
+  "homepage": "https://github.com/yuansushow/redis-example#readme",
+  "dependencies": {
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.15",
+    "@types/redis": "^2.8.8"
+  }
+}

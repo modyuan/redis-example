@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+    <meta charset="UTF-8">
+    <title>计数器</title>
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            margin:20px auto;
+            text-align: center;
+        }
+
+        div#out {
+            margin: 0 auto;
+            margin-top: 40px;
+            height: 40px;
+            width: 145px;
+
+        }
+
+        #count {
+            display: inline-block;
+            border: 1px solid black;
+            padding: 1px;
+            width: 90px;
+            height: 30px;
+            font-size: 26px;
+            line-height: 26px;
+            color: red;
+            vertical-align: top;
+        }
+
+        button {
+            display: inline-block;
+            margin: 0;
+            width: 50px;
+            height: 30px;
+            font-weight: bolder;
+            vertical-align: top;
+            font-size: 22px;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            window.myCount = document.getElementById("count");
+
+            document.getElementById("btn").onclick = async () => {
+                let res = await window.fetch("/api/Count", {method: "post"});
+                let num = parseInt(myCount.innerText);
+                myCount.innerText = num + 1;
+            };
+            setInterval(async () => {
+                let res = await window.fetch("/api/Count");
+                let num = await res.text();
+                window.myCount.innerText = num;
+            }, 1000);
+        });
+    </script>
+</head>
+<body>
+<h1>计数器示例</h1>
+<hr>
+<div id="out">
+    <span id="count"></span>
+    <button id="btn">+1</button>
+</div>
+</body>
+</html>
