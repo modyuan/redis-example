@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
@@ -14,38 +14,48 @@
         }
 
         h1 {
-            margin:20px auto;
+            margin: 5vmin auto;
             text-align: center;
+            font-size: 5vmin;
         }
 
         div#out {
             margin: 0 auto;
-            margin-top: 40px;
-            height: 40px;
-            width: 145px;
+            margin-top: 5vw;
+            height: 40vw;
+            width: 60vw;
 
         }
 
         #count {
             display: inline-block;
             border: 1px solid black;
-            padding: 1px;
-            width: 90px;
-            height: 30px;
-            font-size: 26px;
-            line-height: 26px;
+            padding: 1vw;
+            width: 30vw;
+            height: 10vw;
+            font-size: 8vw;
+            line-height: 8vw;
             color: red;
             vertical-align: top;
         }
 
         button {
             display: inline-block;
-            margin: 0;
-            width: 50px;
-            height: 30px;
+            margin-left: 8vw;
+            width: 20vw;
+            height: 10vw;
             font-weight: bolder;
             vertical-align: top;
-            font-size: 22px;
+            font-size: 8vw;
+        }
+
+        pre {
+            margin: 30px;
+            font-family: Consolas, Monaco, monospace;;
+            border: 1px solid black;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-break: break-all;
         }
     </style>
     <script>
@@ -72,5 +82,23 @@
     <span id="count"></span>
     <button id="btn">+1</button>
 </div>
+<pre>
+const client = redis.createClient(6379, 'localhost');
+
+//初始化计数器
+//set goodCount 0
+client.set("goodCount", '0');
+
+const getA = promisify(client.get).bind(client);
+
+//相当于 get goodCount
+async function getCount() {
+    return getA("goodCount");
+}
+//相当于 incr goodCount
+function addCount() {
+    client.incr("goodCount");
+}
+</pre>
 </body>
 </html>

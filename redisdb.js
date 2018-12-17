@@ -7,17 +7,20 @@ const client = redis.createClient(6379, 'localhost');
 //初始化计数器
 client.set("goodCount", '0');
 
-const setA = promisify(client.get).bind(client);
-
+const getA = promisify(client.get).bind(client);
 
 async function getCount() {
-    return setA("goodCount");
+    return getA("goodCount");
 }
 
 function addCount() {
     client.incr("goodCount");
 }
 
+function newClient() {
+    return redis.createClient(6379, 'localhost');
+}
+
 module.exports = {
-    getCount, addCount
+    getCount, addCount, newClient
 };
