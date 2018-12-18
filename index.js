@@ -18,7 +18,8 @@ const MIME = {
 };
 
 const handlers = {
-    "/Count":{"GET":getCount,"POST":addCount}
+    "/Count":{"GET":getCount,"POST":addCount},
+    "/Chat":{"GET":getOnlinePeople}
 };
 const server = http.createServer(async (req, res) => {
     if (req.url === '/') {
@@ -49,19 +50,19 @@ server.listen(8010);
 
 server.on('close', () => {
     console.log("Server closed.");
+    ws.quit();
 });
 
 server.on('error',()=>{
    console.log("http server error!");
+   server.close();
 });
 
 process.on('SIGTERM', () => {
     server.close();
-    ws.quit();
 });
 process.on('SIGINT', () => {
     server.close();
-    ws.quit();
 });
 
 //静态文件服务
@@ -113,4 +114,10 @@ async function addCount(req, res) {
     res.writeHead(200);
     res.end();
 
+}
+
+function getOnlinePeople(req,res){
+    let num=ws.getOnlinePeople();
+    res.writeHead(200);
+    res.end(String(num));
 }

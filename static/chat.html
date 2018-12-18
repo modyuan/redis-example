@@ -13,13 +13,13 @@
         }
 
         h1 {
-            margin: 5vmin auto;
+            margin: 3vh auto;
             text-align: center;
             font-size: 5vmin;
         }
 
         pre {
-            margin: 30px;
+            margin: 3vh 5vw;
             font-family: Consolas, Monaco, monospace;;
             border: 1px solid black;
             padding: 10px;
@@ -48,9 +48,10 @@
             margin-left:2vw;
             width: 60vw;
             height: 10vh;
-            font-size: 6vmin;
+            font-size: 6vh;
             vertical-align: center;
             border: 1px solid black;
+
         }
 
         #btn {
@@ -58,8 +59,24 @@
             margin-left: 5vw;
             width: 20vw;
             height: 10vh;
-            font-size: 6vmin;
-            vertical-align: center;
+            line-height: 10vh;
+            font-size: 5vmin;
+            vertical-align: top;
+            border-radius: 1vh;
+
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+        #online{
+            margin: 2vh auto;
+            text-align: center;
+            height:3vh;
+            font-size: 3vh;
+            line-height: 3vh;
         }
     </style>
     <script>
@@ -67,6 +84,13 @@
             let btn = document.getElementById("btn");
             let display = document.getElementById("display");
             let msgbox =document.getElementById("msgbox");
+            let online =document.getElementById("online");
+
+            setInterval(async ()=>{
+                let res = await window.fetch("/api/Chat");
+                let num = await res.text();
+                online.innerText = "当前在线人数："+num;
+            },3000);
             //only for recv
             let ws = new WebSocket("ws://" + window.location.hostname + ":8011/");
             //only for post
@@ -102,10 +126,12 @@
     </div>
     <div id="input">
         <input type="text" id="msgbox">
-        <button id="btn">Send</button>
+        <div id="btn">Send</div>
     </div>
 
+
 </div>
+<div id="online">当前在线人数：1</div>
 <pre>
 //只负责订阅消息
 ws.redis = redis.newClient();

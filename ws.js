@@ -7,12 +7,15 @@ wss.redis = redis.newClient();
 
 const wss2 = new WebSocket.Server({port:'8012',host:'0.0.0.0'});
 
+let onlinePeople = 0;
 
-
+function getOnlinePeople(){
+    return onlinePeople;
+}
 //only for post message
 wss.on('connection',(ws)=>{
     //console.log("a link built.");
-
+    onlinePeople +=1;
     ws.redis = redis.newClient();
     ws.redis.subscribe("public");
     ws.redis.on('message',function(channel,message){
@@ -20,6 +23,7 @@ wss.on('connection',(ws)=>{
     });
     ws.on('close',()=>{
         ws.redis.quit();
+        onlinePeople-=1;
         //console.log("a link quited.");
     });
     ws.on('error',()=>{
@@ -56,8 +60,9 @@ wss2.on("error", ()=>{
 });
 
 function quit(){
-    wss.close();wss2.close();
+    wss.close();wss2.close();onlinePeople=0;
 }
+
 module.exports={
-    quit
+    quit,getOnlinePeople
 };

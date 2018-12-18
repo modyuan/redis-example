@@ -14,17 +14,9 @@
         }
 
         h1 {
-            margin: 5vmin auto;
+            margin: 3vh auto;
             text-align: center;
             font-size: 5vmin;
-        }
-
-        h2 {
-            float: left;
-
-            margin-left: 5vmin;
-            font-size: 3vmin;
-            position: absolute;
         }
 
         div#out {
@@ -38,28 +30,35 @@
         #count {
             display: inline-block;
             border: 1px solid black;
-            padding: 1vw;
+            padding: 1vh;
             width: 30vw;
-            height: 10vw;
-            font-size: 8vw;
-            line-height: 8vw;
+            height: 10vh;
+            font-size: 8vh;
+            line-height: 8vh;
             color: red;
             vertical-align: top;
         }
 
-        button {
-            display: inline-block;
+        #btn {
             margin-left: 8vw;
             width: 20vw;
-            height: 10vw;
-            font-weight: bolder;
+            height: 10vh;
+            line-height: 10vh;
+            font-size: 5vmin;
             vertical-align: top;
-            font-size: 8vw;
+            border-radius: 1vh;
+
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
         }
 
         pre {
             margin: 30px;
-            font-family: Consolas, Monaco, monospace;;
+            font-family: Consolas, Monaco, monospace;
             border: 1px solid black;
             padding: 10px;
             white-space: pre-wrap;
@@ -89,7 +88,7 @@
 <hr>
 <div id="out">
     <span id="count">0</span>
-    <button id="btn">+1</button>
+    <div id="btn">+1</div>
 </div>
 <pre>
 const client = redis.createClient(6379, 'localhost');
