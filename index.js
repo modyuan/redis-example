@@ -19,7 +19,8 @@ const MIME = {
 
 const handlers = {
     "/Count":{"GET":getCount,"POST":addCount},
-    "/Chat":{"GET":getOnlinePeople}
+    "/Chat":{"GET":getOnlinePeople},
+    "/GetLastMsg":{"GET":getLastMsg}
 };
 const server = http.createServer(async (req, res) => {
     if (req.url === '/') {
@@ -120,4 +121,13 @@ function getOnlinePeople(req,res){
     let num=ws.getOnlinePeople();
     res.writeHead(200);
     res.end(String(num));
+}
+
+const lastmsgClient = redis.newClient();
+function getLastMsg(req,res){
+    lastmsgClient.lrange("last",0,4,(err,arr)=>{
+        let s = JSON.stringify(arr);
+        res.writeHead(200);
+        res.end(s);
+    });
 }

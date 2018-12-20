@@ -63,6 +63,7 @@
             font-size: 5vmin;
             vertical-align: top;
             border-radius: 1vh;
+            cursor: pointer;
 
             background-color: #4CAF50; /* Green */
             border: none;
@@ -77,10 +78,11 @@
             height:3vh;
             font-size: 3vh;
             line-height: 3vh;
+            color: #999;
         }
     </style>
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", async () => {
             let btn = document.getElementById("btn");
             let display = document.getElementById("display");
             let msgbox =document.getElementById("msgbox");
@@ -96,7 +98,15 @@
             //only for post
             let ws2 = new WebSocket("ws://" + window.location.hostname + ":8012/");
 
-            window.myws=ws;
+            //get history message
+            let res1 = await window.fetch("/api/GetLastMsg");
+            let msgarr = await res1.json();
+
+            msgarr.reverse().forEach(ele=>{
+               display.innerText+="-> "+ele+"\n";
+            });
+            display.innerText+="--------以上是历史消息---------\n";
+
             ws.onmessage=(event)=>{
                 display.innerText+="-> "+event.data+"\n";
                 display.scrollTo(0, display.scrollHeight);
